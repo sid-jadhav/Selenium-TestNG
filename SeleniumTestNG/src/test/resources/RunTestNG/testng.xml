@@ -1,0 +1,12 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Suite1" verbose="1" >
+  <test name="CanBeAnyThing">
+  	
+  	<parameter name="SKIPTEST" value="false"/>
+  	<parameter name="testData.fileName" value="/TestData.xlsx"/>
+  	<parameter name="testData.sheetName" value="Dummy"/>
+    <classes>
+      <class name="Tests.TestSuite"/>
+    </classes>
+  </test>
+</suite>
