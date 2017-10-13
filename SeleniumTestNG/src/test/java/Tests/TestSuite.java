@@ -15,7 +15,7 @@ public class TestSuite {
 	@Factory
 	public Object[] testSuite(ITestContext ngContext){
 		TestRunner tr=new TestRunner(ngContext);
-		return null;
+		return tr.addTC("");
 		
 		
 	}
