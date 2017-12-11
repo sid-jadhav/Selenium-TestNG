@@ -7,12 +7,17 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ExcelHelper {
-	
+	public final static int TestCase_ColumnNo=0;
+	public final static int TestCase_Execution=1;
+	/*	This function creates an excel sheet at given fileLoaction 
+	 *  and with given fileName
+	 */
 	public void createXL(String fileName, String fileLocation){
 		FileOutputStream fout;
 		try {
@@ -30,9 +35,38 @@ public class ExcelHelper {
 		}
 		
 	}
-	public synchronized String getCellData(XSSFSheet MySheet,int row,int col){
+	/* This function returns String value in the given row and column cell  
+	 * @param mySheet Sheet object 
+	 * 		  row given row number
+	 * 		  col given row column
+	 */
+	public synchronized String getCellData(XSSFSheet mySheet,int row,int col){
+		XSSFRow r= mySheet.getRow(row);
+		XSSFCell cell =r.getCell(col); 
+		return cell.getStringCellValue();
+	}
+	/* This function return the row number 
+	 * @param mySheet Is the object of sheet that we need to search in
+	 * 		  testCaseId is what we need to search the rows with 
+	 * 
+	 */
+	public synchronized int findRow(XSSFSheet mySheet,String testCaseId){
+		int rowNo=0;
+		while(rowNo<=mySheet.getLastRowNum()){
+			//System.out.println(mySheet.getLastRowNum());
+			XSSFRow row=mySheet.getRow(rowNo);
+			if(row==null){
+				//System.out.println("Empty Row");
+			}else{
+				if(row.getCell(0).getStringCellValue().contains(testCaseId))
+				{
+					return rowNo;
+				}
+			}
+			rowNo++;
+		}
 		
-		return null;
+		return -1;
 	}
 	/* This function returns Sheet object 
 	 * @param fileName name of file to be loaded 
@@ -52,34 +86,5 @@ public class ExcelHelper {
 			e.printStackTrace();
 		}
 		return null;
-	}
-	/* This function return the row number 
-	 * @param mySheet Is the object of sheet that we need to search in
-	 * 		  testCaseId is what we need to search the rows with 
-	 * 
-	 */
-	public synchronized int findRow(XSSFSheet mySheet,String testCaseId){
-		int rowNo=0;
-		while(rowNo<=mySheet.getLastRowNum()+1){
-			XSSFRow row=mySheet.getRow(rowNo);
-			if(row.getCell(0).getStringCellValue().contains(testCaseId))
-			{
-				return rowNo;
-			}
-			rowNo++;
-		}
-		
-		return -1;
-	}
-	public static void main(String[] args){
-		ExcelHelper eh=new ExcelHelper();
-//		String fileName="data.xlsx";
-//		String fileLocation="C:\\Users\\LENOVO\\git\\Selenium-TestNG\\SeleniumTestNG\\src\\test\\resources\\ExcelData\\";
-//		eh.createXL(fileName,fileLocation);
-		XSSFSheet mySheet=eh.getSheet("TestData.xlsx", "Dummy");
-		String s="com.selenium-testng.ssh";
-		int row=eh.findRow(mySheet, s);
-		System.out.println(row);
-		
 	}
 }

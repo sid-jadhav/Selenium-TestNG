@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [Suite1]">
+  <parameter name="testData.fileName" value="/TestData.xlsx"/>
+  <parameter name="testData.sheetName" value="Dummy"/>
+  <parameter name="SKIPTEST" value="false"/>
+  <test name="CanBeAnyThing">
+    <parameter name="testData.fileName" value="/TestData.xlsx"/>
+    <parameter name="testData.sheetName" value="Dummy"/>
+    <parameter name="SKIPTEST" value="false"/>
+    <classes>
+      <class name="Tests.TestSuite"/>
+    </classes>
+  </test> <!-- CanBeAnyThing -->
+  <test name="CanBeAnyThing(failed)">
+    <parameter name="testData.fileName" value="/TestData.xlsx"/>
+    <parameter name="testData.sheetName" value="Dummy"/>
+    <parameter name="SKIPTEST" value="false"/>
+    <classes>
+      <class name="PracticeBasicSelenium.Interaction.Assignment">
+        <methods>
+          <include name="countTotalNoOfBoxes"/>
+          <include name="totalNoOfBoxesUnderWidget"/>
+          <include name="init"/>
+        </methods>
+      </class> <!-- PracticeBasicSelenium.Interaction.Assignment -->
+    </classes>
+  </test> <!-- CanBeAnyThing(failed) -->
+</suite> <!-- Failed suite [Suite1] -->
